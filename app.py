@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 
-app = Flask(__name__)
+app = Flask(__name__) # назначаем переменную app, как Flask приложение
 
-# Товары пекарни
+# Товары пекарни, делаем переменную со списком товаров
 products = [
     {'id': 1, 'name': 'Хлеб', 'price': 30},
     {'id': 2, 'name': 'Булочка', 'price': 20},
@@ -16,14 +16,14 @@ products = [
     {'id': 10, 'name': 'Маффин', 'price': 35}
 ]
 
-cart = {}
+cart = {} # временное хранилище для Корзины 
 
-@app.route('/')
+@app.route('/') # назначаем путь до главной страницы сайта
 def index():
     return render_template('index.html', products=products)
 
 #функция использует REST метод POST для добавления товара в корзину
-@app.route('/add_to_cart/<int:product_id>', methods=['POST'])
+@app.route('/add_to_cart/<int:product_id>', methods=['POST']) # назначаем эндпоинт и метод для добавления товара в корзину
 def add_to_cart(product_id):
     quantity = int(request.form.get('quantity', 1))
     if product_id in cart:
